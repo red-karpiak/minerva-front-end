@@ -1,0 +1,7 @@
+{
+  "name": "minerva-front-end",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "vue-vite"
+}
