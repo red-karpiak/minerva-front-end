@@ -18,7 +18,7 @@
       </ion-header>
       <ExploreContainer name="Library page" />
     </ion-content>
-    <SearchModal v-if="isModalOpen" @close="isModalOpen = false"></SearchModal>
+    <SearchModal v-if="isModalOpen" @close="modalClose"></SearchModal>
   </ion-page>
 </template>
 
@@ -38,4 +38,8 @@ import SearchModal from "@/components/modals/SearchModal.vue";
 import { Ref, ref } from "vue";
 import { search } from "ionicons/icons";
 const isModalOpen: Ref<boolean> = ref(false);
+
+const modalClose = () => {
+  isModalOpen.value = false;
+};
 </script>

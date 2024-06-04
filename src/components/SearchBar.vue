@@ -1,12 +1,13 @@
 <template>
-  <ion-content>
-    <ion-searchbar inputmode="search" v-model="searchValue"></ion-searchbar>
-    <ion-button @click="search">Search</ion-button>
-  </ion-content>
+  <ion-searchbar
+    inputmode="search"
+    @keydown.enter="search"
+    v-model="searchValue"
+  ></ion-searchbar>
 </template>
 
 <script setup lang="ts">
-import { IonSearchbar, IonContent, IonButton } from "@ionic/vue";
+import { IonSearchbar } from "@ionic/vue";
 import { ref } from "vue";
 const searchValue = ref("");
 const emit = defineEmits(["search"]);
