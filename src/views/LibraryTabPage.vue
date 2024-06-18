@@ -4,7 +4,7 @@
       <ion-toolbar>
         <ion-title>Library</ion-title>
         <ion-buttons slot="end">
-          <ion-button @click="isModalOpen = true">
+          <ion-button @click="navigateToSearch">
             <ion-icon :icon="search"></ion-icon>
           </ion-button>
         </ion-buttons>
@@ -18,7 +18,7 @@
       </ion-header>
       <ExploreContainer name="Library page" />
     </ion-content>
-    <SearchModal v-if="isModalOpen" @close="modalClose"></SearchModal>
+    <!-- <SearchModal v-if="isModalOpen" @close="modalClose"></SearchModal> -->
   </ion-page>
 </template>
 
@@ -34,12 +34,19 @@ import {
   IonIcon,
 } from "@ionic/vue";
 import ExploreContainer from "@/components/ExploreContainer.vue";
-import SearchModal from "@/components/modals/SearchModal.vue";
-import { Ref, ref } from "vue";
+//import SearchModal from "@/components/modals/SearchModal.vue";
+//import { Ref, ref } from "vue";
 import { search } from "ionicons/icons";
-const isModalOpen: Ref<boolean> = ref(false);
+import { useRouter } from "vue-router";
 
-const modalClose = () => {
-  isModalOpen.value = false;
+const router = useRouter();
+
+const navigateToSearch = () => {
+  router.push("/bookSearch"); // Replace '/search' with the route you want to navigate to
 };
+// const isModalOpen: Ref<boolean> = ref(false);
+
+// const modalClose = () => {
+//   isModalOpen.value = false;
+// };
 </script>
