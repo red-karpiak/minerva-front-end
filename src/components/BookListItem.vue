@@ -1,7 +1,7 @@
 <template>
   <ion-item @click="select" role="article">
     <ion-thumbnail slot="start">
-      <ion-img :src="props.book.thumbnail" :alt="props.book.title"></ion-img>
+      <ion-img :src="props.book.image" :alt="props.book.title"></ion-img>
     </ion-thumbnail>
     <ion-label>
       <h4>{{ props.book.title }}</h4>
@@ -22,7 +22,6 @@ const props = defineProps({
   },
 });
 
-console.log("BookListItem props:", props.book);
 const select = () => {
   console.log("Selecting book:", props.book.id);
   emit("select", props.book.id);
