@@ -32,10 +32,11 @@ import axios from "axios";
 import SearchBar from "../components/SearchBar.vue";
 import { Book } from "../interfaces/book.interface";
 import BookList from "../components/BookList.vue";
-
-const emit = defineEmits(["close"]);
+import { useStore } from "vuex";
+import { useRouter } from "vue-router";
+const router = useRouter();
 const results: Ref<Book[]> = ref([]);
-
+const store = useStore();
 const handleSearch = async (value: string) => {
   const query = `${
     import.meta.env.VITE_HOST
@@ -55,7 +56,8 @@ const handleSearch = async (value: string) => {
   }
 };
 const close = (value: Book) => {
-  emit("close", value);
+  store.dispatch("addBook", value);
+  router.push("/tabs/tab2");
 };
 </script>
 <style scoped>

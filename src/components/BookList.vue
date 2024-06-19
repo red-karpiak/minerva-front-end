@@ -28,7 +28,7 @@ const props = defineProps({
   },
   selectAction: {
     type: String,
-    default: "bookDetails",
+    default: "",
   },
 });
 
@@ -39,17 +39,15 @@ const selectedBook: Ref<Book> = ref({} as Book);
 const handleSelect = async (id: string) => {
   if (props.selectAction === "bookDetails") {
     await getDetails(id);
+    close();
   } else if (props.selectAction === "addToLibrary") {
     await getMinimal(id);
-    console.error(`Unknown select action: ${props.selectAction}`);
-  } else {
-    console.error(`Unknown select action: ${props.selectAction}`);
+    close();
   }
-  close();
 };
 
 const getMinimal = async (id: string) => {
-  const query = `${import.meta.env.VITE_HOST}/api/books/volumes/${id}`;
+  const query = `${import.meta.env.VITE_HOST}/api/books/volumes/${id}/true`;
 
   try {
     const response = await axios.get<Book>(query);

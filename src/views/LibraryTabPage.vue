@@ -11,14 +11,15 @@
       </ion-toolbar>
     </ion-header>
     <ion-content :fullscreen="true">
-      <ion-header collapse="condense">
-        <ion-toolbar>
-          <ion-title size="large">Library</ion-title>
-        </ion-toolbar>
-      </ion-header>
-      <ExploreContainer name="Library page" />
+      <div class="modal-container">
+        <BookList
+          v-if="books.length > 0"
+          :books="books"
+          selectAction="bookDetails"
+          @select="navigateToBookDetails"
+        ></BookList>
+      </div>
     </ion-content>
-    <!-- <SearchModal v-if="isModalOpen" @close="modalClose"></SearchModal> -->
   </ion-page>
 </template>
 
@@ -33,20 +34,32 @@ import {
   IonButtons,
   IonIcon,
 } from "@ionic/vue";
-import ExploreContainer from "@/components/ExploreContainer.vue";
-//import SearchModal from "@/components/modals/SearchModal.vue";
 //import { Ref, ref } from "vue";
 import { search } from "ionicons/icons";
 import { useRouter } from "vue-router";
+import { useStore } from "vuex";
+import { computed } from "vue";
+import BookList from "../components/BookList.vue";
+import { BookDetails } from "@/interfaces/book.interface";
+import { Store } from "../store/store";
 
 const router = useRouter();
+const store = useStore<Store>();
+const books = computed(() => store.getters.books);
 
 const navigateToSearch = () => {
-  router.push("/bookSearch"); // Replace '/search' with the route you want to navigate to
+  console.log("store.getters.books:", store.getters.books);
+  router.push("/bookSearch");
 };
-// const isModalOpen: Ref<boolean> = ref(false);
-
-// const modalClose = () => {
-//   isModalOpen.value = false;
-// };
+const navigateToBookDetails = (book: BookDetails) => {
+  console.log("Navigating to book details:", book.id);
+  //router.push(`/bookDetails/${book.id}`); // Replace '/bookDetails' with the route you want to navigate to
+};
 </script>
+<style scoped>
+.modal-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+</style>

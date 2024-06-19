@@ -7,7 +7,7 @@ export const isBook = (data: any): data is Book => {
     typeof data.id === "string" &&
     typeof data.title === "string" &&
     typeof data.authors === "string" &&
-    typeof data.thumbnail === "string"
+    typeof data.image === "string"
   );
 };
 
