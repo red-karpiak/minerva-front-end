@@ -33,6 +33,10 @@ const routes: Array<RouteRecordRaw> = [
     path: "/bookSearch",
     component: () => import("@/views/BookSearchPage.vue"),
   },
+  {
+    path: "/bookDetails",
+    component: () => import("@/views/BookDetailsPage.vue"),
+  },
 ];
 
 const router = createRouter({

@@ -57,7 +57,7 @@ const handleSearch = async (value: string) => {
 };
 const close = (value: Book) => {
   store.dispatch("addBook", value);
-  router.push("/tabs/tab2");
+  router.go(-1);
 };
 </script>
 <style scoped>

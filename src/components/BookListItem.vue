@@ -23,7 +23,7 @@ const props = defineProps({
 });
 
 const select = () => {
-  console.log("Selecting book:", props.book.id);
+  console.log("Selecting book:", props.book.title);
   emit("select", props.book.id);
 };
 </script>

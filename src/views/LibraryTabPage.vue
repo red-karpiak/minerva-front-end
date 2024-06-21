@@ -34,7 +34,6 @@ import {
   IonButtons,
   IonIcon,
 } from "@ionic/vue";
-//import { Ref, ref } from "vue";
 import { search } from "ionicons/icons";
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
@@ -48,12 +47,12 @@ const store = useStore<Store>();
 const books = computed(() => store.getters.books);
 
 const navigateToSearch = () => {
-  console.log("store.getters.books:", store.getters.books);
   router.push("/bookSearch");
 };
 const navigateToBookDetails = (book: BookDetails) => {
-  console.log("Navigating to book details:", book.id);
-  //router.push(`/bookDetails/${book.id}`); // Replace '/bookDetails' with the route you want to navigate to
+  console.log("Navigating to book details:", book.title);
+  store.commit("setBookDetails", book);
+  router.push("/bookDetails");
 };
 </script>
 <style scoped>

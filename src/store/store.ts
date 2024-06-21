@@ -4,11 +4,13 @@ import {
   CommitOptions,
   DispatchOptions,
 } from "vuex";
-import { Book } from "../interfaces/book.interface";
+import { Book, BookDetails } from "../interfaces/book.interface";
 import { State } from "../interfaces/store.interface";
+import createPersistedState from "vuex-persistedstate";
 
 const state: State = {
   books: [],
+  bookDetails: null,
 };
 
 const mutations = {
@@ -17,6 +19,9 @@ const mutations = {
   },
   addBook(state: State, book: Book) {
     state.books.push(book);
+  },
+  setBookDetails(state: State, bookDetails: BookDetails) {
+    state.bookDetails = bookDetails;
   },
 };
 
@@ -27,11 +32,16 @@ const actions = {
   addBook({ commit }: any, book: Book) {
     commit("addBook", book);
   },
+  setBookDetails({ commit }: any, bookDetails: BookDetails) {
+    commit("setBookDetails", bookDetails);
+  },
 };
 
 const getters = {
   books: (state: State): Book[] => state.books,
+  bookDetails: (state: State): BookDetails | null => state.bookDetails,
 };
+const plugins = [createPersistedState({ storage: window.sessionStorage })];
 
 export type Store = Omit<VuexStore<State>, "commit" | "dispatch"> & {
   commit<
@@ -56,4 +66,5 @@ export const store = createStore<State>({
   mutations,
   actions,
   getters,
+  plugins,
 });

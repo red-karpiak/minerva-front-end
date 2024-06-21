@@ -16,7 +16,7 @@
 <script setup lang="ts">
 import BookListItem from "@/components/BookListItem.vue";
 import { IonList, IonContent } from "@ionic/vue";
-import { Book } from "@/interfaces/book.interface";
+import { Book, BookDetails } from "@/interfaces/book.interface";
 import { isBook } from "@/validation/typeGuards/bookTypeGuards";
 import axios from "axios";
 import { PropType, ref, Ref } from "vue";
@@ -64,8 +64,20 @@ const getMinimal = async (id: string) => {
 };
 
 const getDetails = async (id: string) => {
-  console.log(id);
-  //const query = `${import.meta.env.VITE_HOST}/api/books/volumes/${id}`;
+  console.log("Getting details for book with id:", id);
+  const query = `${import.meta.env.VITE_HOST}/api/books/volumes/${id}`;
+  try {
+    const response = await axios.get<BookDetails>(query);
+    if (isBook(response.data)) {
+      const details = response.data as BookDetails;
+      console.log(`Retrieved details for ${details.title}.`);
+      emit("select", details);
+    } else {
+      console.error("Unexpected response structure:", response.data);
+    }
+  } catch (error) {
+    console.error(`Error attempting to get book with id: ${id}.`, error);
+  }
 };
 </script>
 
